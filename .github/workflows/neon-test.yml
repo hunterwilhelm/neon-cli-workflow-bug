@@ -1,0 +1,25 @@
+name: Neon CLI Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-neon-cli:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Neon
+      uses: nhedger/setup-neon@v1
+      with:
+        version: "latest"
+        token: ${{ github.token }}
+        
+    - name: Check Neon CLI version
+      run: neonctl --version
